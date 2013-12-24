@@ -1,0 +1,203 @@
+ 
+                        ***********************
+                        *                     *
+                        *    The Major BBS    *
+                        *         by          *
+                        *     Tim Stryker     *
+                        *                     *
+                        ***********************
+ 
+                           GALACTICOMM, Inc.
+                           11360 Tara Drive
+                         Plantation, FL 33325
+                         Phone: (305) 472-9560
+ 
+                             Release 2.2
+ 
+ 
+Purpose
+-------
+ 
+The Major BBS is a multi-user program designed to support all of the
+features typically desired in a multi-user dial-up host.  It is intended
+for use with the GALACTICOMM BREAKTHROUGH, a 16-channel modem card for
+the IBM PC, XT, AT, and compatibles.  Up to four of these cards can be
+used, thereby supporting up to 64 users simultaneously at 300 or 1200
+baud.  GALACTICOMM, Inc. is providing this software at no charge -- our
+purpose in doing so is to demonstrate to you, beyond question, our
+technical qualifications and the viability of our hardware and software
+designs.  We want to make your decision to buy our products as easy and
+risk-free as possible.  Use your modem to call our free demo system at
+(305) 922-3901, or call Tim Stryker voice at (305) 472-9560 to discuss
+pricing, availability, or our unique consulting services.
+ 
+ 
+A Note About Licensing
+----------------------
+ 
+If you have not yet purchased the GALACTICOMM BREAKTHROUGH, the
+following precautions do not apply to you.
+ 
+All of the files included here are, in effect, released into the public
+domain.  However, one file specifically NOT included here is BRKTHU.LIB
+itself.  This is the library of assembly language routines which provide
+the collection of low-level interrupt services required in a package of
+this sort.  A user must obtain a license from GALACTICOMM before making
+any use of this file.  So, while you may feel free to copy, modify,
+enhance, and even sell copies of this free demo software, DO NOT extend
+the same treatment to BRKTHU.LIB: this file is a licensed product, for
+your use only, on a single machine at a time, as stated in the licensing
+agreement.  To clarify: you may link BRKTHU.LIB into an executable file,
+such as MAJORBBS.EXE, and then distribute that file royalty-free, but
+you may not distribute the file BRKTHU.LIB itself, or any functionally-
+equivalent derivative, or any portion or modification thereof, in any
+form whatsoever.
+ 
+ 
+The Runtime Package
+-------------------
+ 
+A complete, executable copy of MAJORBBS.EXE, with all of its support
+files, is included here for your perusal.  Simply copy the contents of
+this floppy disk onto your hard drive, and invoke the MJRBBS batch file.
+(If you have a machine with horizontal function keys, type MJRBBS H ...
+if you have a Compaq or an IBM "portable", try MJRBBS V I).  If you don't
+have a hard drive, you can run it directly from the floppy -- but don't
+be alarmed if you start getting BTRIEVE ERROR 15 (out of space) messages
+when you kick off certain kinds of disk activity -- the floppy is almost
+full as it stands.
+ 
+If MJRBBS aborts with a message saying that it is unable to open certain
+files, you need to set the FILES= statement in your CONFIG.SYS file to
+give you 40 files.  Using your favorite text editor, add a line of the
+form:
+ 
+     FILES=40
+ 
+...to the end of the file called CONFIG.SYS, located in your root
+directory.  After making the change, be sure to reboot (push the CTRL,
+ALT, and DEL keys simultaneously), because CONFIG.SYS is only read by
+the operating system when it is in the process of booting up.
+ 
+You will probably not be able to actually DO a whole lot with this copy
+of MAJORBBS.EXE, since it requires the presence of a GALACTICOMM
+BREAKTHROUGH card in order to operate as a multi-user BBS.  The reason
+it is supplied at all is just so that you can see how the system looks
+from the System Operator's point of view.  The intent here is that you
+can use our free demo system (305-922-3901) to see what the system looks
+like from the "typical user's" point of view, with live modems and so
+forth.  Running MAJORBBS on your own machine, then, gives you a feel for
+the kinds of things you will be able to do as a System Operator.
+Between using our demo system, reviewing these "SYSOP" displays, and
+reading the source code, you will be able to form a sound judgement as
+to whether The Major BBS is what you need.
+ 
+The upper right section of the screen shows the status of each channel,
+arranged in 4 columns of 16 channels each.  Each column corresponds to
+one possible BREAKTHROUGH circuit card.  If a channel is not "defined",
+the corresponding entry shows a row of little blocks; if it is defined
+but not operational, the entry shows a row of dashes; whereas if the
+channel is both defined and operational, the entry shows as either a
+blank line (if there is no activity on the channel), a status message
+(such as "LOG-ON" or "SIGN-UP"), or the User-ID of the user currently
+using the channel, once that is known.  This particular copy of
+MAJORBBS.EXE has only a single card defined, channels 00 through 0F.
+ 
+The status display area toward the upper left of the screen records
+unusual events of various kinds -- the messages you first see here
+without hardware will be sixteen iterations of the message "VACANT,
+GENERATED STATUS -10", which indicates that the corresponding channel
+did not respond to a RESET request properly.
+ 
+The lower section of the screen is devoted to SYSOP command entry via
+the function keys.  F1 toggles you in and out of the "Modem Activity
+Monitor", a real-time display of each modem's status changes and data.
+F2 may be used to send SYSOP messages to any or all users.  F3 invokes
+the "display" command which is used to show various kinds of information
+in the three lines accompanying the time and date.  F4 can be used to
+"post" credits to users, free or otherwise (after pressing F4, enter a
+numeric quantity to see how it works -- it will not accept any User-ID
+not in your Database, so specify a User-ID of SYSOP or TEST, the only
+two User-ID's in the startup database).  F5 is used to call up complete
+accounting information for a specified account -- use SYSOP or TEST to
+see how it works.  F6 allows you to set the user log-on greeting message
+(whatever message you give here is seen as part of the log-on sequence
+each time a user logs onto the system from that point on).  F7 allows
+you to "emulate" any desired channel, i.e. your keyboard and display are
+placed "in parallel" with that user's keyboard and display.  This is
+very powerful and useful... press ESC to toggle in and out of this mode.
+Finally, F10 invokes the "kill" command: kill a User-ID (delete it), a
+channel (hang up on it), or the whole Major BBS system (return to DOS).
+ 
+The runtime package consists of the following files:
+ 
+     MJRBBS.BAT ..... brings up the Major BBS
+     BTRIEVE.EXE .... installs the "Btrieve" runtime library
+     MAJORBBS.EXE ... main Major BBS execute file
+     ACCOUNT.MCV .... named-text-block file for accounting functions
+     CLASSI.MCV ..... named-text-block file for classified ads
+     EMAIL.MCV ...... named-text-block file for E-MAIL
+     MAJORMSG.MCV ... named-text-block file for executive functions
+     MJRTLC.MCV ..... named-text-block file for teleconferencing
+     SIGNUP.MCV ..... named-text-block file for creating new accounts
+     SYSINF.MCV ..... named-text-block file for system info inquiries
+     USRACC.DAT ..... empty user account Btrieve file
+     SYSVBL.DAT ..... system-variable file (YTD/MTD/DTD quantities etc.)
+     EMAIL.DAT ...... empty E-MAIL message Btrieve file
+     AUDITRAI.DAT ... empty audit-trail Btrieve file for account mods
+     CLASSADS.DAT ... empty classified-ad Btrieve file
+     CLASSRSP.DAT ... empty classified-ad-response Btrieve file
+     MJRBBSV.SCN .... main screen image, for vertical function keys
+     MJRBBSH.SCN .... main screen image, for horizontal function keys
+     MJREMU.SCN ..... terminal-emulation mode screen image
+     MJRMAL.SCN ..... modem-activity-monitor mode screen image
+     MJRACT.SCN ..... account-display background screen image
+ 
+ 
+The Sources
+-----------
+ 
+Believe it or not, these are the actual sources to our demo system here.
+We feel that you should see just how open our architecture is, before
+making a purchase decision on a major investment like a multi-user BBS.
+ 
+NOTE: Please do not expect to be able to compile or link the supplied
+      files into an executable module without additional header files
+      and object libraries.  The "glue" needed to "fill in the cracks"
+      here is supplied only when you purchase the GALACTICOMM
+      BREAKTHROUGH.  This diskette is only intended as a sample of the
+      kinds of code you can use with the BREAKTHROUGH card.
+ 
+These programs are written for the Lattice C compiler, Version 2.14 (we
+have found Version 3.0 and up of the Lattice C compiler to be somewhat
+buggy, so we do not recommend its use at this time).  An experienced C
+programmer should be able to find his way around in these files without
+too much trouble -- and for others, a several-hundred-page book would be
+required, to explain all of the wonderful techniques shown.  For now, a
+brief description of each file is all that can be managed:
+ 
+     ACCOUNT.C ...... "Sysop" functions and credit management
+     CLASSI.C ....... classified ad handler
+     EMAIL.C ........ E-MAIL handler
+     MAJORBBS.C ..... mainline and system executive functions
+     MJREXIT.C ...... system-exit handler
+     MJRTLC.C ....... teleconference (simulated CB) handler
+     OPRDSP.C ....... operator display functions
+     RTKICK.C ....... real-time "kicktable" utilities for event timing
+     SIGNUP.C ....... new-user signup functions
+     SYSINF.C ....... system information inquiry handler
+     UINFED.C ....... user info editor
+     MAJORBBS.H ..... main Major BBS header file
+     USRACC.H ....... user account data block definition header file
+ 
+ NOTE: We do not answer additional technical questions concerning the
+       contents of these files, except to established GALACTICOMM
+       BREAKTHROUGH owners.  Once you have purchased a card, you will
+       have access to our software support hotline, through which you
+       may ask as many questions as you like.  But, as you can
+       imagine, the release of a demo package such as this one would
+       create a flood of technical inquiries from students, the idly
+       curious, and our competitors if we did not take a firm stand
+       on this point.  Your cooperation is greatly appreciated.
+ 
+
